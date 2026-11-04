@@ -694,3 +694,132 @@ tbody tr:last-child {
     width: 100%;
   }
 }
+/* ============ WELCOME POP-UP ============ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(15, 26, 85, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay[hidden] {
+  display: none;
+}
+
+.modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  background: var(--white);
+  border-top: 6px solid var(--gold);
+  border-radius: 20px;
+  padding: 40px 32px 28px;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  animation: popIn 0.4s cubic-bezier(0.2, 1.2, 0.4, 1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  font-size: 22px;
+  line-height: 1;
+  background: var(--navy-soft);
+  color: var(--navy);
+  border-radius: 50%;
+  box-shadow: none;
+}
+
+.modal-close:hover {
+  background: #dbe2fa;
+  box-shadow: none;
+}
+
+.modal-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--navy), var(--navy-dark));
+  color: var(--gold);
+  border: 3px solid var(--gold);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 2px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.modal-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold-dark);
+}
+
+.modal-box h2 {
+  font-size: 26px;
+  color: var(--navy);
+  font-weight: 800;
+  margin: 4px 0 10px;
+}
+
+.modal-text {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.modal-list {
+  list-style: none;
+  text-align: left;
+  background: var(--navy-soft);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+}
+
+.modal-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy);
+}
+
+.modal-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--navy-dark);
+  box-shadow: 0 8px 20px rgba(242, 179, 44, 0.4);
+}
+
+.modal-foot {
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
