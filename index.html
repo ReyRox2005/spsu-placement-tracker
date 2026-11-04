@@ -3,32 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SPSU Student Placement Tracker</title>
+  <title>Placement Tracker | Sir Padampat Singhania University, Udaipur</title>
+  <meta name="description" content="CRUD-based Student Placement Tracker built during the SPSU Udaipur Championship.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <p class="eyebrow">SPSU UDAIPUR CHAMPIONSHIP • DAY 9</p>
-      <h1>Student Placement Tracker</h1>
-      <p>Complete CRUD Application using Google Sheets</p>
-    </header>
 
-    <section class="card">
-      <h2 id="formTitle">Add Student</h2>
+  <!-- TOP NAVIGATION -->
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark">SPSU</span>
+        <span class="brand-text">
+          <strong>Sir Padampat Singhania University</strong>
+          <small>Udaipur &bull; Career Development Cell</small>
+        </span>
+      </a>
+      <div class="nav-links">
+        <a href="#add">Add Student</a>
+        <a href="#records">Records</a>
+        <a href="#records" class="nav-cta">View Placements</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="hero-content">
+      <p class="eyebrow">SPSU UDAIPUR CHAMPIONSHIP &bull; DAY 9</p>
+      <h1>Student Placement Tracker</h1>
+      <p class="hero-sub">
+        One place to create, view, update and manage student placement records,
+        powered by Google Sheets and Apps Script.
+      </p>
+      <div class="hero-actions">
+        <a href="#add" class="btn-hero primary">Add a Student</a>
+        <a href="#records" class="btn-hero ghost">View Records</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- RECOGNITION STRIP -->
+  <section class="recognition">
+    <div class="recognition-title">RECOGNITION &amp; ACCREDITATIONS</div>
+    <div class="recognition-items">
+      <div class="rec-item"><strong>QS I-GAUGE</strong><span>Gold Rating</span></div>
+      <div class="rec-item"><strong>AIMA</strong><span>Member</span></div>
+      <div class="rec-item"><strong>CIPU</strong><span>Member</span></div>
+      <div class="rec-item"><strong>AIU</strong><span>Member</span></div>
+      <div class="rec-item"><strong>Best Green &amp; Clean Campus</strong><span>Award 2026</span></div>
+      <div class="rec-item"><strong>Ranked #3 in Rajasthan</strong><span>Private Engg. &amp; Tech.</span></div>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <!-- LIVE STATS -->
+    <section class="stats" aria-label="Placement statistics">
+      <div class="stat-card">
+        <div class="stat-icon">&#127891;</div>
+        <div>
+          <p class="stat-number" id="statTotal">0</p>
+          <p class="stat-label">Total Students</p>
+        </div>
+      </div>
+      <div class="stat-card learning">
+        <div class="stat-icon">&#128214;</div>
+        <div>
+          <p class="stat-number" id="statLearning">0</p>
+          <p class="stat-label">Learning</p>
+        </div>
+      </div>
+      <div class="stat-card ready">
+        <div class="stat-icon">&#128188;</div>
+        <div>
+          <p class="stat-number" id="statReady">0</p>
+          <p class="stat-label">Interview Ready</p>
+        </div>
+      </div>
+      <div class="stat-card placed">
+        <div class="stat-icon">&#127942;</div>
+        <div>
+          <p class="stat-number" id="statPlaced">0</p>
+          <p class="stat-label">Placed</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADD / UPDATE FORM -->
+    <section class="card" id="add">
+      <div class="card-head">
+        <div>
+          <h2 id="formTitle">Add Student</h2>
+          <p class="card-sub">Fill in the details below. All fields are required.</p>
+        </div>
+        <span class="chip">CREATE &bull; UPDATE</span>
+      </div>
+
       <form id="studentForm">
         <input type="hidden" id="studentId">
+
         <div class="grid">
-          <div>
-            <label>Name</label>
-            <input type="text" id="name" required>
+          <div class="field">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="e.g. Rahul Sharma" required>
           </div>
-          <div>
-            <label>Email</label>
-            <input type="email" id="email" required>
+
+          <div class="field">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="e.g. rahul@spsu.ac.in" required>
           </div>
-          <div>
-            <label>Domain</label>
+
+          <div class="field">
+            <label for="domain">Domain</label>
             <select id="domain" required>
               <option value="">Select Domain</option>
               <option>Java Full Stack</option>
@@ -38,8 +128,9 @@
               <option>UI/UX</option>
             </select>
           </div>
-          <div>
-            <label>Placement Status</label>
+
+          <div class="field">
+            <label for="status">Placement Status</label>
             <select id="status" required>
               <option value="">Select Status</option>
               <option>Learning</option>
@@ -48,21 +139,31 @@
             </select>
           </div>
         </div>
+
         <div class="actions">
           <button type="submit" id="submitBtn">Create Student</button>
-          <button type="button" class="secondary" onclick="resetForm()">
-            Cancel Edit
-          </button>
+          <button type="button" class="secondary" onclick="resetForm()">Cancel Edit</button>
         </div>
       </form>
+
       <p id="message"></p>
     </section>
 
-    <section class="card">
-      <div class="tableHeader">
-        <h2>Student Records</h2>
-        <button onclick="loadStudents()">Refresh Data</button>
+    <!-- RECORDS TABLE -->
+    <section class="card" id="records">
+      <div class="card-head">
+        <div>
+          <h2>Student Records</h2>
+          <p class="card-sub" id="recordCount">Loading records...</p>
+        </div>
+        <button onclick="loadStudents()" class="refresh-btn">&#8635; Refresh Data</button>
       </div>
+
+      <div class="search-wrap">
+        <span class="search-icon">&#128269;</span>
+        <input type="search" id="searchInput" placeholder="Search by name, email, domain or status...">
+      </div>
+
       <div class="tableWrapper">
         <table>
           <thead>
@@ -77,8 +178,117 @@
           <tbody id="studentTableBody"></tbody>
         </table>
       </div>
+
+      <div id="noMatch" class="no-match" hidden>
+        <p>&#128533; No students match your search.</p>
+      </div>
     </section>
-  </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p><strong>Sir Padampat Singhania University, Udaipur</strong></p>
+      <p>SPSU Udaipur Championship &bull; CRUD War Arena &bull; Built with HTML, CSS, JavaScript, Google Sheets &amp; Apps Script</p>
+      <p class="footer-small">&copy; <span id="year"></span> Student Placement Tracker</p>
+    </div>
+  </footer>
+
+  <!-- Your original CRUD logic (unchanged) -->
   <script src="script.js"></script>
+
+  <!-- UI enhancements: stats, badges, avatars and search (does not touch CRUD logic) -->
+  <script>
+    (function () {
+      const tbody = document.getElementById("studentTableBody");
+      const search = document.getElementById("searchInput");
+      const noMatch = document.getElementById("noMatch");
+      const recordCount = document.getElementById("recordCount");
+      const badgeClass = {
+        "Learning": "badge-learning",
+        "Interview Ready": "badge-ready",
+        "Placed": "badge-placed"
+      };
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const observer = new MutationObserver(enhance);
+
+      function enhance() {
+        observer.disconnect();
+
+        const counts = { total: 0, "Learning": 0, "Interview Ready": 0, "Placed": 0 };
+
+        tbody.querySelectorAll("tr").forEach(function (row) {
+          const cells = row.querySelectorAll("td");
+          if (cells.length < 5) return;
+
+          counts.total++;
+          const status = cells[3].textContent.trim();
+          if (counts[status] !== undefined) counts[status]++;
+
+          if (!row.dataset.enhanced) {
+            const name = cells[0].textContent.trim();
+            const initials = name.split(/\s+/).map(function (w) { return w[0]; })
+              .slice(0, 2).join("").toUpperCase() || "?";
+
+            const wrap = document.createElement("div");
+            wrap.className = "student-cell";
+            const avatar = document.createElement("span");
+            avatar.className = "avatar";
+            avatar.textContent = initials;
+            const nameEl = document.createElement("span");
+            nameEl.className = "student-name";
+            nameEl.textContent = name;
+            wrap.appendChild(avatar);
+            wrap.appendChild(nameEl);
+            cells[0].textContent = "";
+            cells[0].appendChild(wrap);
+
+            const badge = document.createElement("span");
+            badge.className = "badge " + (badgeClass[status] || "");
+            badge.textContent = status;
+            cells[3].textContent = "";
+            cells[3].appendChild(badge);
+
+            row.dataset.enhanced = "1";
+          }
+        });
+
+        document.getElementById("statTotal").textContent = counts.total;
+        document.getElementById("statLearning").textContent = counts["Learning"];
+        document.getElementById("statReady").textContent = counts["Interview Ready"];
+        document.getElementById("statPlaced").textContent = counts["Placed"];
+
+        applyFilter();
+        observer.observe(tbody, { childList: true });
+      }
+
+      function applyFilter() {
+        const q = search.value.trim().toLowerCase();
+        let total = 0;
+        let visible = 0;
+
+        tbody.querySelectorAll("tr").forEach(function (row) {
+          if (row.querySelectorAll("td").length < 5) return;
+          total++;
+          const match = row.textContent.toLowerCase().indexOf(q) !== -1;
+          row.style.display = match ? "" : "none";
+          if (match) visible++;
+        });
+
+        noMatch.hidden = !(total > 0 && visible === 0);
+        recordCount.textContent = total === 0
+          ? "No records yet. Add your first student above."
+          : (q ? "Showing " + visible + " of " + total + " students"
+               : total + " student" + (total === 1 ? "" : "s") + " in the database");
+      }
+
+      search.addEventListener("input", applyFilter);
+      observer.observe(tbody, { childList: true });
+    })();
+  </script>
+
 </body>
 </html>
